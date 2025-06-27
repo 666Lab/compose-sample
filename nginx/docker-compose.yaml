@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:stable-alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro # 현재 경로의 설정파일을 컨테이너 내부의 설정파일로 read only
+      - ./nginx_log:/mnt/logs/nginx # 현재 경로 기준 임의 로그파일 경로
+    networks:
+      - sample-custom-networksname # 사용자 정의 네트워크 이름.
+
+
+networks:
+  sample-custom-networksname: # 사용자 정의 네트워크 이름
+    driver: bridge # 브리지 네트워크 드라이버 사용
