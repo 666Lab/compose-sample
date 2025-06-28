@@ -1,0 +1,23 @@
+version : "3.8"
+
+services:
+  minio:
+    image: minio/minio:latest
+    environment:
+      MINIO_ROOT_USER: sample-user
+      MINIO_ROOT_PASSWORD: sample-password
+    ports:
+      - "9000:9000" # S3 API 포트 매핑
+      - "9001:9001" # MinIO 웹 콘솔 포트 매핑
+
+    command: server /data --console-address ":9001" # MinIO 서버 시작 명령어 /data 디렉토리에 데이터를 저장하고 콘솔 주소를 9001로 설정
+
+    restart: always # 컨테이너가 중지되면 항상 재시작
+    volumes:
+      - ./minio_data:/data # 현재 경로 기준 임의 데이터베이스 데이터 경로
+    networks:
+      - sample-custom-networksname # 사용자 정의 네트워크 이름.
+
+networks:
+  sample-custom-networksname: # 사용자 정의 네트워크 이름
+    driver: bridge # 브리지 네트워크 드라이버 사용
