@@ -3,9 +3,12 @@ version : "3.8"
 services:
   redis:
     image: redis:latest
+    container_name: sample-redis-container # 컨테이너 이름
     ports:
       - "6379:6379" # 호스트:컨테이너 포트 매핑
     restart: always # 컨테이너가 중지되면 항상 재시작
+    environment:
+      - REDIS_PASSWORD=password123!@# # Redis 비밀번호 설정
     volumes:
       - ./redis_data:/data # 현재 경로 기준 임의 데이터베이스 데이터 경로
     networks:
