@@ -6,6 +6,8 @@ services:
     environment:
       MINIO_ROOT_USER: sample-user
       MINIO_ROOT_PASSWORD: sample-password
+      MINIO_DOMAIN: "s3.myserver.com" # MinIO 도메인 설정 (AWS 스타일로 운용시 필요한가봄... {가상 호스트 방식})
+      # MINIO_DOMAIN이 설정되었다면, haproxy나 nginx사용하여 라우팅 할 경우엔 "*.s3.myserver.com" 처럼 conf파일에 와일드카드 처리 필요
     ports:
       - "9000:9000" # S3 API 포트 매핑
       - "9001:9001" # MinIO 웹 콘솔 포트 매핑
